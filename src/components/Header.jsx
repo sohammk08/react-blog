@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 function Header() {
   return (
@@ -11,20 +12,28 @@ function Header() {
 
       <div className="flex items-center justify-right ml-auto">
         <ul className="flex justify-center list-none m-0 p-0">
-          <li className="mr-5 text-lg font-light cursor-pointer">HOME</li>
+          <li className="mr-5 text-lg font-light cursor-pointer">
+            <Link className="link" to="/">HOME</Link>
+          </li>
 
-          <li className="mr-5 text-lg font-light cursor-pointer">ABOUT</li>
+          <li className="mr-5 text-lg font-light cursor-pointer">
+            <Link className="link" to="/about">ABOUT</Link>
+          </li>
 
-          <li className="mr-5 text-lg font-light cursor-pointer">CONTACT</li>
-
-          <li className="mr-5 text-lg font-light cursor-pointer">WRITE</li>
+          <li className="mr-5 text-lg font-light cursor-pointer">
+            <Link className="link" to="/write">WRITE</Link>
+          </li>
         </ul>
       </div>
 
       <div className="flex items-center justify-right ml-auto">
         <ul className="flex justify-center list-none m-0 p-0">
-          <li className="mr-5 text-lg font-light cursor-pointer">LOGIN</li>
-          <li className="mr-5 text-lg font-light cursor-pointer">REGISTER</li>
+          <li className="mr-5 text-lg font-light cursor-pointer">
+            <Link className="link" to="/login">LOGIN</Link>
+          </li>
+          <li className="mr-5 text-lg font-light cursor-pointer">
+            <Link className="link" to="/register">REGISTER </Link>
+          </li>
         </ul>
       </div>
     </div>
