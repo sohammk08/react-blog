@@ -1,11 +1,14 @@
-import './App.css';
+import "./App.css";
+import BlogCard from "./components/BlogCard";
+import Header from "./components/Header";
 
 function App() {
   return (
-    <div className="bg-green-500 p-4">
-      <h1 className="text-white text-center">TailwindCSS is Working!</h1>
-    </div>
+    <>
+      <Header />
+      <BlogCard />
+    </>
   );
-}
+};
 
 export default App;
