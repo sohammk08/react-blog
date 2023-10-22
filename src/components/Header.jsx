@@ -6,7 +6,7 @@ function Header() {
     <div className="w-full h-12 bg-white sticky top-0 flex justify-center font-jsans">
       <div className="items-center justify-center">
         <h2 className="text-black text-1.8em font-vround ml-4 mt-2">
-          One Page
+          React Blog
         </h2>
       </div>
 
