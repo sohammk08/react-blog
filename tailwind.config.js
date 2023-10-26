@@ -12,7 +12,10 @@ module.exports = {
       fontSize: {
         '1em': '1em',
         '1.8em': '1.8em',
-      }
+      },
+      spacing: {
+        "vh-50": "calc(100vh - 50px)",
+      },
     },
   },
   plugins: [],
