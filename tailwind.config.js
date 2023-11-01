@@ -15,7 +15,7 @@ module.exports = {
         '3.5rem': '3.5rem',
       },
       spacing: {
-        "vh-50": "calc(100vh - 50px)",
+        'vh-50': 'calc(100vh - 50px)',
       },
     },
   },
