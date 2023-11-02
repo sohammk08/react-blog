@@ -1,6 +1,36 @@
-import React from 'react';
+import { useState } from "react";
+import { db, auth } from "../firebase";
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 
 function Write() {
+  // Check if user is authenticated and get their email; otherwise, set to null
+  const author = auth.currentUser ? auth.currentUser.email : null;
+
+  const [title, setTitle] = useState();
+  const [content, setContent] = useState();
+
+  // Handling submission when "publish" button is clicked
+  const SubmitHandler = async (e) => {
+    e.preventDefault();
+    if (author) {
+      // If user is authenticated, add a new document to "blogs"
+      await addDoc(collection(db, "blogs"), {
+        blog_author: author,
+        blog_title: title,
+        blog_content: content,
+        blog_upload_time: serverTimestamp(),
+      });
+      setTitle("");
+      setContent("");
+      alert("Your blog has been uploaded!");
+    } else {
+      // If user is not authenticated or some other error arises, show error
+      alert(
+        "There was some error while uploading. Please try again or contact the administrator."
+      );
+    }
+  };
+
   return (
     <div className="pt-12">
       <img
@@ -18,8 +48,15 @@ function Write() {
             placeholder="Title"
             className="text-3xl p-5 border-none w-70vw focus:outline-none flex-grow"
             autoFocus={true}
+            onChange={(e) => {
+              setTitle(e.target.value);
+            }}
+            value={title}
           />
-          <button className="text-white bg-teal-700 p-2 cursor-pointer text-base mr-5 border-none rounded-md">
+          <button
+            className="text-white bg-teal-700 p-2 cursor-pointer text-base mr-5 border-none rounded-md"
+            onClick={SubmitHandler}
+          >
             Publish
           </button>
         </div>
@@ -28,6 +65,10 @@ function Write() {
             placeholder="Tell your story..."
             type="text"
             className="p-5 border-none w-70vw text-xl h-screen font-mono"
+            onChange={(e) => {
+              setContent(e.target.value);
+            }}
+            value={content}
           ></textarea>
         </div>
       </form>
