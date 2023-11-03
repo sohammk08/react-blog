@@ -1,4 +1,6 @@
 import "./App.css";
+import { useState } from "react";
+import { auth } from "./firebase";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import About from "./pages/About";
@@ -6,9 +8,19 @@ import Write from "./pages/Write";
 import Register from "./pages/Register";
 import Header from "./components/Header";
 import ErorrPage from "./pages/ErrorPage";
+import { onAuthStateChanged } from "firebase/auth";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 function App() {
+  const [userState, setUserState] = useState(false);
+  onAuthStateChanged(auth, (userState) => {
+    if(userState) {
+      setUserState(true);
+    } else {
+      console.log("No user is logged in")
+    }
+  })
+
   return (
     <>
       <Router>
@@ -22,13 +34,13 @@ function App() {
             element={<About />} />
           <Route
             path="/write"
-            element={<Write />} />
+            element={userState ? <Write /> : <Register />} />
           <Route
             path="/register"
-            element={<Register />} />
+            element={userState ? <Home /> : <Register />} />
           <Route
             path="/login"
-            element={<Login />} />
+            element={userState ? <Home /> : <Login />} />
           <Route
             path="*"
             element={<ErorrPage />} />
