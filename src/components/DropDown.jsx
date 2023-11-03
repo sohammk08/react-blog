@@ -25,10 +25,10 @@ function DropDown() {
   return (
     <div>
       <Dropdown title={username} icon={<UserBadgeIcon />}>
-        <Dropdown.Item icon={<UserInfoIcon />} as="a">
+        <Dropdown.Item icon={<UserInfoIcon />} as="a" href="/profile">
           Profile
         </Dropdown.Item>
-        <Dropdown.Item icon={<GearIcon />} as="a">
+        <Dropdown.Item icon={<GearIcon />} as="a" href="/settings">
           Settings
         </Dropdown.Item>
       </Dropdown>
