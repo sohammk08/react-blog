@@ -1,29 +1,83 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { db, auth } from "../firebase";
+import { deleteUser } from "firebase/auth";
+import {
+  collection,
+  query,
+  where,
+  doc,
+  getDocs,
+  updateDoc,
+} from "firebase/firestore";
 
 function Settings() {
+  const [docID, setDocID] = useState();
   const [username, setUsername] = useState("");
   const [aboutMe, setAboutMe] = useState("");
-  const [instagramLink, setInstagramLink] = useState("");
+  const [igLink, setIgLink] = useState("");
   const [showConfirmation, setShowConfirmation] = useState(false);
 
-  const handleChangeUsername = () => {
-    // Username change logic here
+  // useEffect hook to fetch the user document ID when the component is mounted
+  useEffect(() => {
+    // Create a firestore query to find the user document based on the username of the logged in user
+    const ref = query(
+      collection(db, "users"),
+      where("email", "==", auth.currentUser.email)
+    );
+    const rData = async () => {
+      (await getDocs(ref)).forEach((doc) => {
+        setDocID(doc.id);
+      });
+    };
+    rData();
+  }, []);
+
+  // Function to change user's username
+  const changeUsername = async () => {
+    const op = doc(db, "users", docID);
+    await updateDoc(op, {
+      username: username,
+    });
+    alert("Username has been updated!");
+    setUsername("");
   };
 
-  const handleAddAboutMe = () => {
-    // Update "about me" logic here
+  // Function to add 'about me'
+  const addAboutMe = async () => {
+    const dp = doc(db, "users", docID);
+    await updateDoc(dp, {
+      aboutme: aboutMe,
+    });
+    alert("About me has been added!");
+    setAboutMe("");
   };
 
-  const handleAddInstagramLink = () => {
-    // "Add Instagram link" logic here
+  // Function to add an Instagram profile link to the user's profile
+  const addIgLink = async () => {
+    const il = doc(db, "users", docID);
+    await updateDoc(il, {
+      iglink: igLink,
+    });
+    alert("Instagram link has been added!");
+    setIgLink("");
   };
 
+  // Function to handle the initiation of account deletion
   const handleDeleteAccount = () => {
     setShowConfirmation(true);
   };
 
-  const confirmDeleteAccount = () => {
-    // Account deletion logic here
+  // Function to delete user account
+  const deleteAccount = () => {
+    const user = auth.currentUser;
+    deleteUser(user)
+      .then(() => {
+        alert("Account has been deleted!");
+        window.location.reload(false);
+      })
+      .catch((error) => {
+        alert("An errror has occcured!", error);
+      });
   };
 
   return (
@@ -44,7 +98,7 @@ function Settings() {
           />
           <button
             className="ml-2 bg-blue-500 text-white px-4 py-2 rounded-md"
-            onClick={handleChangeUsername}
+            onClick={changeUsername}
           >
             Change
           </button>
@@ -65,7 +119,7 @@ function Settings() {
           />
           <button
             className="ml-2 bg-blue-500 text-white px-4 py-2 rounded-md"
-            onClick={handleAddAboutMe}
+            onClick={addAboutMe}
           >
             Add
           </button>
@@ -81,12 +135,12 @@ function Settings() {
             type="text"
             className="w-full border p-2 rounded-md"
             placeholder="Instagram profile link here. e.g. www.instagram.com/YOUR-USERNAME"
-            onChange={(e) => setInstagramLink(e.target.value)}
-            value={instagramLink}
+            onChange={(e) => setIgLink(e.target.value)}
+            value={igLink}
           />
           <button
             className="ml-2 bg-blue-500 text-white px-4 py-2 rounded-md"
-            onClick={handleAddInstagramLink}
+            onClick={addIgLink}
           >
             Add
           </button>
@@ -108,7 +162,7 @@ function Settings() {
           <div className="flex mt-2">
             <button
               className="bg-red-500 text-white px-4 py-2 rounded-md mr-2"
-              onClick={confirmDeleteAccount}
+              onClick={deleteAccount}
             >
               Yes
             </button>
