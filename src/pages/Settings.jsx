@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { db, auth } from "../firebase";
-import { deleteUser } from "firebase/auth";
+import { deleteUser, sendPasswordResetEmail } from "firebase/auth";
 import {
   collection,
   query,
@@ -11,26 +11,25 @@ import {
 } from "firebase/firestore";
 
 function Settings() {
+  const user = auth.currentUser.email;
   const [docID, setDocID] = useState();
   const [username, setUsername] = useState("");
   const [aboutMe, setAboutMe] = useState("");
   const [igLink, setIgLink] = useState("");
-  const [showConfirmation, setShowConfirmation] = useState(false);
+  const [ADConfirmation, setADConfirmation] = useState(false);
+  const [PRConfirmation, setPRConfirmation] = useState(false);
 
   // useEffect hook to fetch the user document ID when the component is mounted
   useEffect(() => {
     // Create a firestore query to find the user document based on the username of the logged in user
-    const ref = query(
-      collection(db, "users"),
-      where("email", "==", auth.currentUser.email)
-    );
+    const ref = query(collection(db, "users"), where("email", "==", user));
     const rData = async () => {
       (await getDocs(ref)).forEach((doc) => {
         setDocID(doc.id);
       });
     };
     rData();
-  }, []);
+  }, [user]);
 
   // Function to change user's username
   const changeUsername = async () => {
@@ -64,19 +63,35 @@ function Settings() {
 
   // Function to handle the initiation of account deletion
   const handleDeleteAccount = () => {
-    setShowConfirmation(true);
+    setADConfirmation(true);
+  };
+
+  // Function to handle initiation of sending password reset email
+  const handlePasswordReset = () => {
+    setPRConfirmation(true);
   };
 
   // Function to delete user account
   const deleteAccount = () => {
-    const user = auth.currentUser;
-    deleteUser(user)
+    const ur = auth.currentUser;
+    deleteUser(ur)
       .then(() => {
         alert("Account has been deleted!");
         window.location.reload(false);
       })
       .catch((error) => {
         alert("An errror has occcured!", error);
+      });
+  };
+
+  // Send password reset email
+  const passwordReset = () => {
+    sendPasswordResetEmail(auth, user)
+      .then(() => {
+        alert("Password reseet email has been sent!");
+      })
+      .catch((error) => {
+        alert("There was an error!", error);
       });
   };
 
@@ -148,13 +163,42 @@ function Settings() {
       </div>
 
       <button
+        className="bg-white text-blue-500 px-4 py-2 rounded-md hover:bg-blue-500 hover:text-white"
+        onClick={handlePasswordReset}
+      >
+        Reset Password
+      </button>
+
+      {PRConfirmation && (
+        <div className="mt-4">
+          <p className="text-red-500 text-sm font-medium">
+            Do you want to reset your password?
+          </p>
+          <div className="flex mt-2">
+            <button
+              className="bg-red-500 text-white px-4 py-2 rounded-md mr-2"
+              onClick={passwordReset}
+            >
+              Yes
+            </button>
+            <button
+              className="bg-gray-300 text-gray-700 px-4 py-2 rounded-md"
+              onClick={() => setPRConfirmation(false)}
+            >
+              No
+            </button>
+          </div>
+        </div>
+      )}
+
+      <button
         className="bg-white text-red-500 px-4 py-2 rounded-md hover:bg-red-500 hover:text-white"
         onClick={handleDeleteAccount}
       >
         Delete Account
       </button>
 
-      {showConfirmation && (
+      {ADConfirmation && (
         <div className="mt-4">
           <p className="text-red-500 text-sm font-medium">
             Are you sure you want to delete your account?
@@ -168,7 +212,7 @@ function Settings() {
             </button>
             <button
               className="bg-gray-300 text-gray-700 px-4 py-2 rounded-md"
-              onClick={() => setShowConfirmation(false)}
+              onClick={() => setADConfirmation(false)}
             >
               No
             </button>
