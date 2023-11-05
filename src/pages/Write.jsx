@@ -33,6 +33,7 @@ function Write() {
 
   return (
     <div className="pt-12">
+      <h1 className="text-2xl font-vround text-center mb-4">Write</h1>
       <img
         className="ml-40 h-64 object-cover rounded-md w-70vw"
         src="https://images.pexels.com/photos/6685428/pexels-photo-6685428.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
