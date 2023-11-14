@@ -41,7 +41,7 @@ function Profile() {
                   <span className="text-11 text-yellow-600 leading-5 font-vround mt-4 mr-2 cursor-pointer">Music</span>
                   <span className="text-11 text-yellow-600 leading-5 font-vround mt-4 mr-2 cursor-pointer">Life</span>
                 </div>
-                <span className="text-2xl font-jsans font-bold mt-4 cursor-pointer">
+                <span className="text-2xl text-center font-jsans font-bold cursor-pointer">
                   {myBlogInformation.blog_title}
                 </span>
                 <span className="text-base font-jsans font-normal mt-15 cursor-pointer">
