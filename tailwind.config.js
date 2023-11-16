@@ -8,6 +8,7 @@ module.exports = {
       fontFamily: {
         'jsans': ['Josefin Sans', 'sans-serif'],
         'vround': ['Varela Round', 'sans-serif'],
+        'lora': ['Lora', 'sans-serif'],
       },
       fontSize: {
         '1em': '1em',

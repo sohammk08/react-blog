@@ -23,10 +23,10 @@ function Author() {
           <div className="flex mt-2rem mr-0 mb-2rem ml-2rem">
             <img 
               src="https://images.unsplash.com/photo-1485893086445-ed75865251e0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=580&q=80"
-              className="w-56 float-left rounded-md"
+              className="w-56 float-left rounded-full"
               alt="" />
             <h2 className="text-black text-4em font-jsans mt-auto mr-0 mb-auto ml-2rem">{userInfo.username}</h2>
-            <a className="text-black text-4em mt-5.5rem mr-0 mb-0 ml-2rem" href={userInfo.iglink}><i className="fa-brands fa-instagram"></i></a>
+            <a className="text-black text-4em mt-16 mr-0 mb-0 ml-2rem" href={userInfo.iglink}><i className="fa-brands fa-instagram"></i></a>
           </div>
           <div className="flex ml-24">
             <ul className="text-center mt-auto mb-auto list-none">
