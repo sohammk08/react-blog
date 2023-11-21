@@ -6,6 +6,7 @@ import { collection, getDocs } from "firebase/firestore";
 function About() {
   const [authorInfo, setAuthorInfo] = useState([]);
 
+  // Fetch author information from Firestore
   useEffect(() => {
     const getAuthorInfo = async () => {
       const data = await getDocs(collection(db, "users"));
@@ -17,7 +18,9 @@ function About() {
   return (
     <>
       <h1 className="text-2xl font-vround text-center mb-4">About</h1>
+      {/* Grid layout for displaying author cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {/* Map through authorInfo array and render an AboutCard for each author */}
         {authorInfo.map((aInfo) => (
           <AboutCard
             key={aInfo.id}

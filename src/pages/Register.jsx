@@ -8,21 +8,25 @@ function Register() {
   const [username, setUsername] = useState();
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
+
+  // Accessing navigate function from react-router-dom
   let navigate = useNavigate();
 
-  // Registering user and saving username in db
+  // Registering user and saving username in database
   const registerUser = async (e) => {
     e.preventDefault();
     try {
+      // Create user with email and password using Firebase authentication
       await createUserWithEmailAndPassword(auth, email, password);
+      // Add user information to the "users" collection
       await addDoc(collection(db, "users"), {
         email: email,
         username: username,
         iglink: "https://instagram.com/",
       });
-      navigate("/");
+      navigate("/"); // Redirect after successful registration
     } catch (err) {
-      alert("Error!", err);
+      alert("Error!", err); // Display an alert in case of error during registration
     }
   };
 

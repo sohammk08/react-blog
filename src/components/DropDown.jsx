@@ -10,21 +10,26 @@ import { collection, query, where, getDocs } from "firebase/firestore";
 function DropDown() {
   const [username, setUsername] = useState();
 
+  // Fetch user information from Firestore
   useEffect(() => {
     const user = auth.currentUser.email;
+    // Create a Firestore query to get user information based on email
     const q = query(collection(db, "users"), where("email", "==", user));
-    const rData = async () => {
+    // Fetch and set the username
+    const fetchData = async () => {
       const querySnapshot = await getDocs(q);
       querySnapshot.forEach((doc) => {
         setUsername(doc.data().username);
       });
     };
-    rData();
+    fetchData();
   }, []);
 
   return (
     <div>
+      {/* RSuite Dropdown component */}
       <Dropdown title={username} icon={<UserBadgeIcon />}>
+        {/* Dropdown items with icons */}
         <Dropdown.Item icon={<UserInfoIcon />} as="a" href="/profile">
           Profile
         </Dropdown.Item>
