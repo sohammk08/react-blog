@@ -12,23 +12,22 @@ function Home() {
       setBlogPostInfo(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
     };
     getBlogInfo();
-  });
+  }, []);
 
   return (
     <>
       <h1 className="text-2xl font-vround text-center mb-4">Home</h1>
-      <div className="blogPosts">
-        {blogPostInfo.map((postInfo) => {
-          return (
-            <BlogCard
-              imageUrl="https://images.pexels.com/photos/6685428/pexels-photo-6685428.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
-              author={postInfo.blog_author}
-              title={postInfo.blog_title}
-              uploadTime="1 hour ago"
-              content={postInfo.blog_content}
-            />
-          );
-        })}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {blogPostInfo.map((postInfo) => (
+          <BlogCard
+            key={postInfo.id}
+            imageUrl="https://images.pexels.com/photos/6685428/pexels-photo-6685428.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
+            author={postInfo.blog_author}
+            title={postInfo.blog_title}
+            uploadTime="1 hour ago"
+            content={postInfo.blog_content}
+          />
+        ))}
       </div>
     </>
   );
