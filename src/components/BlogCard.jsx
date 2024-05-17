@@ -2,47 +2,29 @@ import React from "react";
 
 function BlogCard({ imageUrl, author, title, uploadTime, content }) {
   return (
-    <div className="bg-white w-64 mx-auto">
-      <img
-        className="w-full h-280 object-cover rounded-md"
-        src={imageUrl}
-        alt=""
-      />
-      <div className="text-center">
-        <div className="postCats">
-          <span className="text-11 text-yellow-600 leading-5 font-vround mt-4 mr-2 cursor-pointer">
-            Music
-          </span>
-          <span className="text-11 text-yellow-600 leading-5 font-vround mt-4 mr-2 cursor-pointer">
-            Life
-          </span>
-        </div>
-      </div>
-      <div className="p-2 text-center">
-        {title && (
-          <>
-            <span className="text-2xl font-jsans font-bold cursor-pointer">
+    <div className="bg-white w-72 mx-auto rounded-lg shadow-md overflow-hidden">
+      <img className="w-full h-48 object-cover" src={imageUrl} alt={title} />
+      <div className="p-4">
+        <div className="text-center -mt-2">
+          {title && (
+            <h2 className="text-xl font-semibold text-gray-800 cursor-pointer hover:text-gray-600">
               {title}
-            </span>
-            <br />
-          </>
-        )}
-        {author && (
-          <>
-            <span className="text-base font-jsans font-normal mt-2 cursor-pointer">
-              {author}
-            </span>
-            <br />
-          </>
-        )}
-        {uploadTime && (
-          <span className="text-gray-600 italic text-xs mt-2 font-lora">
-            {uploadTime}
-          </span>
-        )}
+            </h2>
+          )}
+          {author && (
+            <div className="bg-gray-600 text-white mt-2 w-full">
+              <p className="text-xs text-center py-1 cursor-pointer hover:text-gray-300">
+                {author}
+              </p>
+            </div>
+          )}
+          {uploadTime && (
+            <p className="text-xs text-gray-400 italic mt-1">{uploadTime}</p>
+          )}
+        </div>
         {content && (
-          <p className="text-slate-900 text-sm leading-6 font-vround mt-2">
-            {content}
+          <p className="text-sm text-center text-gray-700 mt-4 leading-6">
+            {content.substring(0, 100)}...
           </p>
         )}
       </div>

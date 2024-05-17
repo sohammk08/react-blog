@@ -6,8 +6,8 @@ function Write() {
   // Check if user is authenticated and get their email; otherwise, set to null
   const author = auth.currentUser ? auth.currentUser.email : null;
 
-  const [title, setTitle] = useState();
-  const [content, setContent] = useState();
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
 
   // Handling submission when "publish" button is clicked
   const SubmitHandler = async (e) => {
@@ -32,22 +32,22 @@ function Write() {
   };
 
   return (
-    <div className="pt-12">
+    <div className="pt-12 flex flex-col items-center">
       <h1 className="text-2xl font-vround text-center mb-4">Write</h1>
       <img
-        className="ml-40 h-64 object-cover rounded-md w-70vw"
+        className="h-64 object-cover rounded-md w-4/5 mb-4"
         src="https://images.pexels.com/photos/6685428/pexels-photo-6685428.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
         alt=""
       />
-      <form className="relative flex-grow">
-        <div className="ml-40 flex items-center">
-          <label htmlFor="fileInput">
+      <form className="w-full max-w-5xl">
+        <div className="flex items-center mb-4">
+          <label htmlFor="fileInput" className="mr-2">
             <i className="w-6 h-6 flex items-center justify-center text-xl text-gray-600 cursor-pointer rounded-xl border border-solid fas fa-plus"></i>
           </label>
           <input
             type="text"
             placeholder="Title"
-            className="text-3xl p-5 border-none w-70vw focus:outline-none flex-grow"
+            className="text-3xl p-5 border-none w-full focus:outline-none"
             autoFocus={true}
             onChange={(e) => {
               setTitle(e.target.value);
@@ -55,17 +55,16 @@ function Write() {
             value={title}
           />
           <button
-            className="text-white bg-teal-700 p-2 cursor-pointer text-base mr-5 border-none rounded-md"
+            className="text-white bg-teal-700 p-2 ml-2 cursor-pointer text-base border-none rounded-md"
             onClick={SubmitHandler}
           >
             Publish
           </button>
         </div>
-        <div className="ml-40 flex items-center">
+        <div className="flex justify-center">
           <textarea
             placeholder="Tell your story..."
-            type="text"
-            className="p-5 border-none w-70vw text-xl h-screen font-mono"
+            className="px-2 py-2 mb-5 border-none w-full text-lg h-32 font-mono"
             onChange={(e) => {
               setContent(e.target.value);
             }}
