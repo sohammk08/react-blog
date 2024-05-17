@@ -1,4 +1,5 @@
 import React from "react";
+import { formatDistanceToNow } from "date-fns";
 
 function BlogCard({ imageUrl, author, title, uploadTime, content }) {
   return (
@@ -19,7 +20,11 @@ function BlogCard({ imageUrl, author, title, uploadTime, content }) {
             </div>
           )}
           {uploadTime && (
-            <p className="text-xs text-gray-400 italic mt-1">{uploadTime}</p>
+            <p className="text-xs text-gray-400 italic mt-1">
+              {formatDistanceToNow(uploadTime.toDate(), {
+                addSuffix: true,
+              })}
+            </p>
           )}
         </div>
         {content && (
