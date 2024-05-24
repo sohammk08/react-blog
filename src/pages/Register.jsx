@@ -31,40 +31,45 @@ function Register() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center bg-cover h-vh-50">
-      <span className="text-5xl font-vround">Register</span>
-      <form className="mt-5 flex flex-col" onSubmit={registerUser}>
-        <label className="mt-10 mb-0">Username</label>
-        <input
-          type="text"
-          className="p-0.5 bg-white border-none rounded-md"
-          placeholder="Enter your username"
-          required
-          onChange={(e) => setUsername(e.target.value)}
-          value={username}
-        />
-        <label className="mt-10 mb-0">Email</label>
-        <input
-          type="text"
-          className="p-0.5 bg-white border-none rounded-md"
-          placeholder="Enter your email"
-          required
-          onChange={(e) => setEmail(e.target.value)}
-          value={email}
-        />
-        <label className="mt-10 mb-0">Password</label>
-        <input
-          type="password"
-          className="p-0.5 bg-white border-none rounded-md"
-          placeholder="Enter your password"
-          required
-          onChange={(e) => setPassword(e.target.value)}
-          value={password}
-        />
-        <button className="mt-5 cursor-pointer text-white p-2 text-center bg-lime-700 border-none rounded-md">
-          Register
-        </button>
-      </form>
+    <div className="mt-16 bg-cover flex flex-col items-center justify-center">
+      <div className="bg-white rounded-lg shadow-md p-8 w-full max-w-md">
+        <h3 className="font-bold text-4xl text-center">Register</h3>
+        <form className="mt-10 flex flex-col space-y-2" onSubmit={registerUser}>
+          <label className="text-sm font-medium">Username</label>
+          <input
+            type="text"
+            className="rounded-md border border-gray-300 p-2 focus:outline-none focus:ring-1 focus:ring-blue-500"
+            placeholder="Enter your username"
+            required
+            onChange={(e) => setUsername(e.target.value)}
+            value={username}
+          />
+          <label className="text-sm font-medium">Email</label>
+          <input
+            type="text"
+            className="rounded-md border border-gray-300 p-2 focus:outline-none focus:ring-1 focus:ring-blue-500"
+            placeholder="Enter your email"
+            required
+            onChange={(e) => setEmail(e.target.value)}
+            value={email}
+          />
+          <label className="text-sm font-medium">Password</label>
+          <input
+            type="password"
+            className="rounded-md border border-gray-300 p-2 focus:outline-none focus:ring-1 focus:ring-blue-500"
+            placeholder="Enter your password"
+            required
+            onChange={(e) => setPassword(e.target.value)}
+            value={password}
+          />
+          <button
+            type="submit"
+            className="bg-blue-500 hover:bg-blue-700 text-white font-medium rounded-md p-2 focus:outline-none focus:ring-1 focus:ring-blue-500 transition duration-150 ease-in-out"
+          >
+            Register
+          </button>
+        </form>
+      </div>
     </div>
   );
 }
